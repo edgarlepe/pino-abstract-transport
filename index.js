@@ -4,7 +4,7 @@ const metadata = Symbol.for('pino.metadata')
 const split = require('split2')
 const { Duplex } = require('readable-stream')
 
-module.exports = function build (fn, opts = {}) {
+function build (fn, opts = {}) {
   const parseLines = opts.parse === 'lines'
   const parseLine = typeof opts.parseLine === 'function' ? opts.parseLine : JSON.parse
   const close = opts.close || defaultClose
@@ -76,3 +76,7 @@ module.exports = function build (fn, opts = {}) {
 function defaultClose (err, cb) {
   process.nextTick(cb, err)
 }
+
+module.exports = build
+
+module.exports.build = build
